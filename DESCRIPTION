@@ -1,0 +1,24 @@
+Package: Blur
+Type: Package
+Title: Tools for determining effective spatial scales in covariates
+Version: 0.1.02
+Date: 2015-06-12
+Author: Jussi Jousimo
+Maintainer: Jussi Jousimo <jvj@iki.fi>
+Description: Tools for determining effective spatial scales in covariates
+License: MIT
+Depends:
+  R (>= 3.0.0),
+  INLA (>= 0.0-1428997066),
+  R6,
+  sp,
+  raster,
+  plyr,
+  tidyr
+Suggests:
+  SpaceTimeModels
+URL: https://github.com/statguy/Blur
+LazyLoad: yes
+Collate:
+  'Kernel.R'
+  'Smooth.R'
