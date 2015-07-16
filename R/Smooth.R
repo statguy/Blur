@@ -42,7 +42,7 @@ smoothDiscreteSubset <- function(r, x, y, kernel, smoothValues, edgeValues) {
 #' @import raster
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export smoothDiscreteSubsets
-smoothDiscreteSubsets <- function(r, coords, kernel, scales, processValues, edgeValues, wide=T, .parallel=T) {
+smoothDiscreteSubsets <- function(r, coords, kernel, scales, smoothValues, edgeValues, wide=T, .parallel=T) {
   library(raster)
   library(plyr)
   library(sp)
@@ -77,7 +77,7 @@ smoothDiscreteSubsets <- function(r, coords, kernel, scales, processValues, edge
     message("Kernel size = ", dim(kernel$asMatrix())[1], " X ", dim(kernel$asMatrix())[2])
     smoothPixels <- plyr::ldply(1:n.coords, function(i, coords, n.coords, scale, kernel) {
       message("Smoothing scale = ", scale, ", for coord = ", i, "/", n.coords, " (", coords[i,1], ",", coords[i,2], ")")
-      x <- Blur::smoothDiscreteSubset(r=r, x=coords[i,1], y=coords[i,2], kernel=kernel, processValues=processValues, edgeValues=edgeValues)
+      x <- Blur::smoothDiscreteSubset(r=r, x=coords[i,1], y=coords[i,2], kernel=kernel, smoothValues=smoothValues, edgeValues=edgeValues)
       return(x)
     }, coords=coords, n.coords=n.coords, scale=scale, kernel=kernel, .parallel=.parallel) # Inner loop parallel strategy slower for small kernels, but faster for big kernels
     return(smoothPixels)
