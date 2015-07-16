@@ -89,7 +89,7 @@ kernel <- ExponentialKernel$new()
 
 User may specify custom kernels as well by inheriting from the `Kernel` class
 and implementing the `constructKernelInternal` abstract method. See the
-(source code)[https://github.com/statguy/Blur/blob/master/R/Kernel.R]
+[source code](https://github.com/statguy/Blur/blob/master/R/Kernel.R)
 for examples.
 
 Convolution
