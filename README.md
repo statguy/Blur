@@ -9,7 +9,7 @@ output:
     fig_caption: yes
 ---
 
-(View [PDF](https://github.com/statguy/Blur/README.pdf) of this document to view the equations.)
+(View [PDF](https://github.com/statguy/Blur/blob/master/README.pdf) of this document to view the equations.)
 
 An R package for determining effective spatial scales of covariates using convolution.
 
@@ -89,7 +89,7 @@ kernel <- ExponentialKernel$new()
 
 User may specify custom kernels as well by inheriting from the `Kernel` class
 and implementing the `constructKernelInternal` abstract method. See the
-(source code)[https://github.com/statguy/Blur/blob/master/R/Kernel.R]
+[source code](https://github.com/statguy/Blur/blob/master/R/Kernel.R)
 for examples.
 
 Convolution
