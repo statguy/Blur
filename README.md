@@ -11,7 +11,7 @@ output:
 
 (View [PDF](https://github.com/statguy/Blur/blob/master/README.pdf) of this document to view the equations.)
 
-An R package for determining effective spatial scales of covariates using convolution.
+An R package for finding convolution for subsets of large rasters (to determine effective spatial scales).
 
 Introduction
 ------------
@@ -22,8 +22,8 @@ Consider the linear predictor at location $\boldsymbol{s}_i$:
   \gamma_{1} y_1 + \ldots + \gamma_{Q} y_Q +
   z_1(\boldsymbol{s}_i) + \ldots + z_R(\boldsymbol{s}_i) \quad (1)
 \]
-where $x_{1} \ldots x_{P}$ are spatial covariates with unknown effective spatial scale $\sigma$,
-$\beta$s are unknown weights and $y_1 \ldots y_Q$ are other terms
+where $x_{1} \ldots x_{P}$ are spatial covariates with corresponding unknown effective spatial scales
+$\sigma_1 \ldots \sigma_P$, $\beta$s are unknown weights and $y_1 \ldots y_Q$ are other terms
 such as non-spatial fixed effects with unknown weights $\gamma$ and
 $z_1(\boldsymbol{s}_i) \ldots z_R(\boldsymbol{s}_i)$ are spatial and non-spatial random effects.
 
@@ -32,8 +32,8 @@ The spatial covariates are defined such that
   x(\boldsymbol{s}_i) = \frac{\sum_{\boldsymbol{s}_j\in\Omega} K\left( \sigma^{-1} \| \boldsymbol{s}_i - \boldsymbol{s}_j \| \right) 1_{x=X(\boldsymbol{s}_j)} }
   {\sum_{\boldsymbol{s}_j\in\Omega} K\left( \sigma^{-1} \| \boldsymbol{s}_i - \boldsymbol{s}_j \| \right)} \quad (2),
 \]
-where the indicator function $1_{x=X(\boldsymbol{s}_j)}$ returns $1$ if the map $X(\boldsymbol{s}_j)$ contains the variable
-$x$ at the location $\boldsymbol{s}_j$, or $0$ otherwise.
+where the indicator function $1_{x=X(\boldsymbol{s}_j)}$ returns $1$ if the map $X(\boldsymbol{s}_j)$
+contains the variable $x$ at the location $\boldsymbol{s}_j$, or $0$ otherwise.
 The equation (2) produces a subset of convolution and applying it over all locations in $\Omega$
 generates visually a blur effect (hence the name of the package), where the blur is stronger for larger scales
 (see figure 1).
@@ -146,7 +146,8 @@ memory issues.
 
 The functions `smoothContinuousSubsets` and `smoothDiscreteSubsets` are the same except the latter creates
 a binary mask of a subset of the raster where the convolution is applied on. The same result is achieved by
-masking the whole raster and supplying it to `smoothContinuousSubsets`. However, using subsets saves memory.
+masking the whole raster and supplying it to `smoothContinuousSubsets`. However, the use of subsets saves
+memory.
 
 Feedback
 --------
