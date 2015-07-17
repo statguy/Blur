@@ -17,8 +17,8 @@ smoothDiscreteSubset <- function(r, x, y, kernel, smoothValues, edgeValues) {
   startCol <- max(0, col-kernelRadius1) + 1
   nrows <- min(dim(r)[1]+1, row+kernelRadius1) - startRow
   ncols <- min(dim(r)[2]+1, col+kernelRadius1) - startCol
-  xmin <- startRow + (row-kernelRadius1) - 1
-  ymin <- startCol + (col-kernelRadius1) - 1
+  xmin <- startRow - (row-kernelRadius1) - 1
+  ymin <- startCol - (col-kernelRadius1) - 1
   if (!(dim(k)[1] == nrows & dim(k)[2] == ncols)) {
     #message("Cut kernel ", dim(k)[1], " X ", dim(k)[2], " to ", nrows, " X ", ncols)
     k <- k[1:nrows+xmin, 1:ncols+ymin]
