@@ -42,7 +42,7 @@ smoothDiscreteSubset <- function(r, x, y, kernel, smoothValues, edgeValues) {
 #' @import raster
 #' @author Jussi Jousimo \email{jvj@@iki.fi}
 #' @export smoothDiscreteSubsets
-smoothDiscreteSubsets <- function(r, coords, kernel, scales, smoothValues, edgeValues, wide=T, .parallel=T) {
+smoothDiscreteSubsets <- function(r, coords, kernel, scales, smoothValues, edgeValues=c(), wide=T, .parallel=T) {
   library(raster)
   library(plyr)
   library(sp)
@@ -69,6 +69,9 @@ smoothDiscreteSubsets <- function(r, coords, kernel, scales, smoothValues, edgeV
   
   if (!inherits(kernel, "Kernel"))
     stop("Argument 'kernel' must be of class 'Kernel'.")
+  
+  if (missing(smoothValues))
+    stop("Required argument 'smoothValues' missing.")
   
   library(plyr)
   smoothPixels <- plyr::ldply(rev(sort(scales)), function(scale, coords) {
