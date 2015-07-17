@@ -24,7 +24,7 @@ smoothDiscreteSubset <- function(r, x, y, kernel, smoothValues, edgeValues) {
     k <- k[1:nrows+xmin, 1:ncols+ymin]
   }
   
-  # Get edges and process values around the specified point that matches the size of the kernel
+  # Get edges and mask values around the specified point that matches the size of the kernel
   edgeRaster <- raster::getValuesBlock(r, startRow, nrows, startCol, ncols, format='matrix')
   # Set kernel zero at edges for edge correction
   k[edgeRaster %in% edgeValues | is.na(edgeRaster)] <- 0
@@ -33,7 +33,7 @@ smoothDiscreteSubset <- function(r, x, y, kernel, smoothValues, edgeValues) {
   # Get binary mask of the values to be smoothed
   smoothMaskRaster <- edgeRaster %in% smoothValues
   # Find convolution
-  smoothValue <- sum(k * processRaster, na.rm=T)
+  smoothValue <- sum(k * smoothMaskRaster, na.rm=T)
   x <- data.frame(x=x, y=y, scale=kernel$getScale(), value=smoothValue)
   return(x)
 }
@@ -116,7 +116,7 @@ smoothContinuousSubset <- function(r, x, y, kernel, edgeValues=c()) {
     k <- k[1:nrows+xmin, 1:ncols+ymin]
   }
   
-  # Get edges and process values around the specified point that matches the size of the kernel
+  # Get edges and values to be smoothed around the specified point that matches the size of the kernel
   processRaster <- raster::getValuesBlock(r, startRow, nrows, startCol, ncols, format='matrix')
   # Set kernel zero at edges for edge correction
   k[processRaster %in% edgeValues | is.na(processRaster)] <- 0
